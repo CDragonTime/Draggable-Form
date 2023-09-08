@@ -1,23 +1,38 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "target": "esnext",
-    "moduleResolution": "node",
-    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "outDir": "compiler-client",
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "declaration": true,
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "allowJs": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"],
     "paths": {
-      "@/*": ["./src/*"],
-      "@@/*": ["./src/.umi/*"],
-      "@@test/*": ["./src/.umi-test/*"]
+      "@src/*": ["./src/*"],
+      "@library/*": ["./src/*"],
+      "@/*": [
+        "src/*"
+      ],
+      "@@/*": [
+        "src/.umi/*"
+      ],
+      "@umijs/max": [
+        "/Users/chenlong/Desktop/umi-test/node_modules/_umi@4.0.71@umi"
+      ],
+      "@umijs/max/typings": [
+        "src/.umi/typings"
+      ]
     }
   },
-  "include": ["./**/*.d.ts", "./**/*.ts", "./**/*.tsx"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
 }
