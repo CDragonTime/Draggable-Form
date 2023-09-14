@@ -1,6 +1,6 @@
 ---
 name: '报告 Bug | Report bug 🐛'
-about: 报告 Ant Design Pro 的 bug
+about: 报告 C-Dragon 的 bug
 title: '🐛 [BUG]'
 labels: '🐛 bug'
 assignees: ''
@@ -36,7 +36,7 @@ Provide reproducible code, warehouse, or online examples
 
 ### © 版本信息
 
-- Ant Design Pro 版本: [e.g. 4.0.0]
+- C-Dragon 版本: [e.g. 4.0.0]
 - umi 版本
 - 浏览器环境
 - 开发环境 [e.g. mac OS]

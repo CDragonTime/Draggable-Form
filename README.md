@@ -1,6 +1,6 @@
 Language : 🇺🇸 | [🇨🇳](./README.zh-CN.md) | [🇷🇺](./README.ru-RU.md) | [🇹🇷](./README.tr-TR.md) | [🇯🇵](./README.ja-JP.md) | [🇫🇷](./README.fr-FR.md) | [🇵🇹](./README.pt-BR.md) | [🇸🇦](./README.ar-DZ.md)
 
-<h1 align="center">Ant Design Pro</h1>
+<h1 align="center">C-Dragon</h1>
 
 <div align="center">
 
@@ -23,7 +23,7 @@ An out-of-box UI solution for enterprise applications as a React boilerplate.
 
 ## 5.0 is out! 🎉🎉🎉
 
-[Ant Design Pro 5.0.0](https://github.com/ant-design/ant-design-pro/issues/8656)
+[C-Dragon 5.0.0](https://github.com/ant-design/ant-design-pro/issues/8656)
 
 ## Translation Recruitment :loudspeaker:
 
@@ -128,6 +128,6 @@ Modern browsers.
 
 Any type of contribution is welcome, here are some examples of how you may contribute to this project:
 
-- Use Ant Design Pro in your daily work.
+- Use C-Dragon in your daily work.
 - Submit [issues](http://github.com/ant-design/ant-design-pro/issues) to report bugs or ask questions.
 - Propose [pull requests](http://github.com/ant-design/ant-design-pro/pulls) to improve our code.

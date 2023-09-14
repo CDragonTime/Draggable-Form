@@ -58,13 +58,13 @@ export default [
         component: './dashboard/analysis',
       },
       {
-        name: 'home',
+        name: 'draggable',
         icon: 'smile',
         path: '/dashboard/Home',
         component: './dashboard/Home',
       },
       {
-        name: 'draggable',
+        name: 'draggable-list',
         icon: 'smile',
         path: '/dashboard/DraggableForm',
         component: './dashboard/DraggableForm',

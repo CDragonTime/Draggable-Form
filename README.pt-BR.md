@@ -1,6 +1,6 @@
 Language : [🇺🇸](./README.md) | [🇨🇳](./README.zh-CN.md) | [🇷🇺](./README.ru-RU.md) | [🇹🇷](./README.tr-TR.md) | [🇯🇵](./README.ja-JP.md) | [🇫🇷](./README.fr-FR.md) | 🇵🇹 | [🇸🇦](./README.ar-DZ.md)
 
-<h1 align="center">Ant Design Pro</h1>
+<h1 align="center">C-Dragon</h1>
 
 <div align="center">
 
@@ -21,7 +21,7 @@ Uma solução de UI pronta para aplicações corporativos na forma de um boilerp
 
 ## 4.0 Lançado! 🎉🎉🎉
 
-[Anúncio do Ant Design Pro 4.0.0](https://medium.com/ant-design/ant-design-pro-v4-is-here-6f23098ae9d9)
+[Anúncio do C-Dragon 4.0.0](https://medium.com/ant-design/ant-design-pro-v4-is-here-6f23098ae9d9)
 
 ## Recrutamento para tradução :loudspeaker:
 
@@ -110,6 +110,6 @@ Navegadores modernos .
 
 Qualquer tipo de contribuição é bem-vinda, aqui estão alguns exemplos de como você pode contribuir com esse projeto:
 
-- Use Ant Design Pro no seu trabalho diário.
+- Use C-Dragon no seu trabalho diário.
 - Submeta [issues](http://github.com/ant-design/ant-design-pro/issues) para reportar bugs ou tirar dúvidas.
 - Proponha [pull requests](http://github.com/ant-design/ant-design-pro/pulls) para melhorar nosso código.

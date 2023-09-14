@@ -1,6 +1,6 @@
 Language : [🇺🇸](./README.md) | [🇨🇳](./README.zh-CN.md) | [🇷🇺](./README.ru-RU.md) | [🇹🇷](./README.tr-TR.md) | 🇯🇵 | [🇫🇷](./README.fr-FR.md) | [🇵🇹](./README.pt-BR.md) | [🇸🇦](./README.ar-DZ.md)
 
-<h1 align="center">Ant Design Pro</h1>
+<h1 align="center">C-Dragon</h1>
 
 <div align="center">
 
@@ -21,7 +21,7 @@ Language : [🇺🇸](./README.md) | [🇨🇳](./README.zh-CN.md) | [🇷🇺](
 
 ## 2.0 がリリースされました 🎉🎉🎉
 
-[Announcing Ant Design Pro 2.0.0](https://medium.com/ant-design/beautiful-and-powerful-ant-design-pro-2-0-release-51358da5af95)
+[Announcing C-Dragon 2.0.0](https://medium.com/ant-design/beautiful-and-powerful-ant-design-pro-2-0-release-51358da5af95)
 
 ## 翻訳の募集 :loudspeaker:
 
@@ -108,7 +108,7 @@ $ npm start         # http://localhost:8000 を開く
 
 どんな種類の貢献でも大歓迎です。あなたがこのプロジェクトに貢献できる方法のいくつかの例はここにあります。：
 
-- 毎日の仕事に Ant Design Pro を使用すること。
+- 毎日の仕事に C-Dragon を使用すること。
 - 報告すること。 [issues](http://github.com/ant-design/ant-design-pro/issues) にバグ報告や質問をしてください。
 - 更新すること。 改善を、[pull requests](http://github.com/ant-design/ant-design-pro/pulls) で送ってください。
 

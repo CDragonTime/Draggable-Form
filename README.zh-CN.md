@@ -1,6 +1,6 @@
 Language : [🇺🇸](./README.md) | 🇨🇳 | [🇷🇺](./README.ru-RU.md) | [🇹🇷](./README.tr-TR.md) | [🇯🇵](./README.ja-JP.md) | [🇫🇷](./README.fr-FR.md) | [🇵🇹](./README.pt-BR.md) | [🇸🇦](./README.ar-DZ.md)
 
-<h1 align="center">Ant Design Pro</h1>
+<h1 align="center">C-Dragon</h1>
 
 <div align="center">
 
@@ -21,7 +21,7 @@ Language : [🇺🇸](./README.md) | 🇨🇳 | [🇷🇺](./README.ru-RU.md) | 
 
 ## 5.0 已经发布! 🎉🎉🎉
 
-[Ant Design Pro 5.0.0](https://github.com/ant-design/ant-design-pro/issues/8656)
+[C-Dragon 5.0.0](https://github.com/ant-design/ant-design-pro/issues/8656)
 
 ## 特性
 
@@ -122,6 +122,6 @@ $ cd myapp && npm install
 
 我们非常欢迎你的贡献，你可以通过以下方式和我们一起共建 :smiley:：
 
-- 在你的公司或个人项目中使用 Ant Design Pro。
+- 在你的公司或个人项目中使用 C-Dragon。
 - 通过 [Issue](http://github.com/ant-design/ant-design-pro/issues) 报告 bug 或进行咨询。
 - 提交 [Pull Request](http://github.com/ant-design/ant-design-pro/pulls) 改进 Pro 的代码。
