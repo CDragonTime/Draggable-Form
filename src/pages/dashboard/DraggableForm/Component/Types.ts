@@ -8,31 +8,31 @@ export enum DragConfig {
 }
 
 // 设置字符限制
-export const MAX_INPUT_LENGTH = 100
+export const MAX_INPUT_LENGTH = 100;
 
 export declare type DragItem = {
-  key: string
-  index?: number
-  opacity?: number
-  formInclude: Form_Type[]
-  dragTitle: string
-  createTime: string // 唯一值
-  iconType: string
-  isValidateError: boolean
+  key: string;
+  index?: number;
+  opacity?: number;
+  formInclude: Form_Type[];
+  dragTitle: string;
+  createTime: string; // 唯一值
+  iconType: string;
+  isValidateError: boolean;
 
-  code: string // 排序依据
-  title: string
-  type?: number | string // 类型，可能转化为自定义映射    1、text，2、radiobutton,3、checkbox,4、date，5、port
-  tipValue?: string // place holder配置
-  mandatory?: number
-  displayFrom?: number
-  displayReport?: number
-  sort?: number // 排序依据
-  options?: { label: string; value: string }[] // 下拉框名字
-  edit?: number
-  status?: number
-  search?: number
-}
+  code: string; // 排序依据
+  title: string;
+  type?: number | string; // 类型，可能转化为自定义映射    1、text，2、radiobutton,3、checkbox,4、date，5、port
+  tipValue?: string; // place holder配置
+  mandatory?: number;
+  displayFrom?: number;
+  displayReport?: number;
+  sort?: number; // 排序依据
+  options?: { label: string; value: string }[]; // 下拉框名字
+  edit?: number;
+  status?: number;
+  search?: number;
+};
 
 export enum Form_Type {
   CODE = 'code', // 唯一值
@@ -65,7 +65,7 @@ export const Base_Type_Value = {
   [Base_Type.DATE]: 5,
   [Base_Type.VARIABLE]: 6,
   [Base_Type.RCA]: 7,
-}
+};
 
 export const Drag_List = [
   {
@@ -164,7 +164,7 @@ export const Drag_List = [
       Form_Type.DISPLAY_REPORT,
     ],
   },
-]
+];
 /**
  * 搜索的配置
  * @param v
@@ -179,12 +179,12 @@ export const typeToFilterType = (v) => {
     5: 'text',
     6: v.options ? 'select' : 'text',
     7: 'treeSelect',
-  }
-  const type = Base_Type_Value[v?.type]
+  };
+  const type = Base_Type_Value[v?.type];
   return {
     valueType: valueTypeEnum[type],
-  }
-}
+  };
+};
 
 /**
  * 设置拖拉初始值
@@ -193,28 +193,36 @@ export const typeToFilterType = (v) => {
  * @returns
  */
 export const getInitFormValue = (data, nums) => {
-  const initFormValue: any = {}
-  const time = new Date().getTime()
-  initFormValue.createTime = time
+  const initFormValue: any = {};
+  const time = new Date().getTime();
+  initFormValue.createTime = time;
   data?.formInclude?.forEach((v: Form_Type, index) => {
     // 此处制定默认字段
     if (v === Form_Type.OPTIONS) {
-      initFormValue[v] = [{ label: data?.dragTitle + `${nums}`, value: data?.dragTitle + `${nums}` }]
+      initFormValue[v] = [
+        { label: data?.dragTitle + `${nums}`, value: data?.dragTitle + `${nums}` },
+      ];
     } else if (v === Form_Type.PORT_TYPE) {
       // initFormValue[v] = true
     } else if ([Form_Type.CONTENT, Form_Type.FORM_TITLE, Form_Type.TOOLTIP].includes(v)) {
-      initFormValue[v] = data?.dragTitle + `${nums}`
+      initFormValue[v] = data?.dragTitle + `${nums}`;
     } else if ([Form_Type.CODE].includes(v)) {
       if (data?.formInclude?.includes(Form_Type.PORT_TYPE)) {
-        initFormValue[v] = ''
+        initFormValue[v] = '';
       } else {
-        initFormValue[v] = Form_Type.CODE + time
+        initFormValue[v] = Form_Type.CODE + time;
       }
     } else if (
-      [Form_Type.DISPLAY_FILTER, Form_Type.DISPLAY_EDIT, Form_Type.DISPLAY_FORM, Form_Type.DISPLAY_REPORT, Form_Type.MANDATORY].includes(v)
+      [
+        Form_Type.DISPLAY_FILTER,
+        Form_Type.DISPLAY_EDIT,
+        Form_Type.DISPLAY_FORM,
+        Form_Type.DISPLAY_REPORT,
+        Form_Type.MANDATORY,
+      ].includes(v)
     ) {
-      initFormValue[v] = true
+      initFormValue[v] = true;
     }
-  })
-  return initFormValue
-}
+  });
+  return initFormValue;
+};

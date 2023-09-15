@@ -15,8 +15,8 @@
 
   .content-divider {
     padding: 10px 16px 10px 30px;
-    border-right: 1px solid @divider-color;
     font-weight: bold;
+    border-right: 1px solid @divider-color;
 
     .dragger-title {
       text-align: left;
@@ -41,15 +41,14 @@
     border-right: 1px solid @divider-color;
 
     .drag-in-color {
-      background: rgba(122, 122, 122, 0.1)
+      background: rgba(122, 122, 122, 0.1);
     }
 
     .scroll-content {
+      width: 100%;
       height: calc(100% - 40px);
       overflow-y: auto;
-      width: 100%;
     }
-
   }
 
   .around {
@@ -67,14 +66,14 @@
     cursor: pointer;
 
     .center-text {
-      text-align: center;
       font-size: 16px;
+      text-align: center;
     }
 
     .center-overflow-text {
-      text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .sortable-icon {
@@ -99,15 +98,15 @@
 }
 
 .drawer-content {
+  width: 100%;
   height: calc(100% - 34px);
   overflow-y: auto;
-  width: 100%;
 }
 
 .complaint-danger {
-  color: @red-base
+  color: @red-base;
 }
 
 .complaint-disabled {
-  color: @blue-5
+  color: @blue-5;
 }

@@ -5,34 +5,34 @@
  * @Description:
  * @FilePath: /umi-test/src/pages/Home/index.tsx
  */
-import { useModel } from '@umijs/max'
-import { Button, Col, Row,Form, Input, Space } from 'antd'
-import React, { useState } from 'react'
-import HeaderEdit from './HeaderEdit'
-import './index.less'
+import { Button, Col, Row } from 'antd';
+import React, { useState } from 'react';
+import HeaderEdit from './HeaderEdit';
+import './index.less';
 
 const HomePage: React.FC = () => {
-  const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false)
+  const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false);
 
   const onClose = () => {
-    setComplaintHeaderEdit(false)
-  }
+    setComplaintHeaderEdit(false);
+  };
   return (
-    <>   <Row>
-      <Col>
-        <Button
-          onClick={() => {
-            setComplaintHeaderEdit(true)
-          }}
-        >
-          Draggerable
-        </Button>
-      </Col>
-      {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
-    </Row>
+    <>
+      <Row>
+
+        <Col>
+          <Button
+            onClick={() => {
+              setComplaintHeaderEdit(true);
+            }}
+          >
+            Draggerable
+          </Button>
+        </Col>
+        {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
+      </Row>
     </>
+  );
+};
 
-  )
-}
-
-export default HomePage
+export default HomePage;

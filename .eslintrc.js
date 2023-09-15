@@ -1,7 +1,12 @@
 module.exports = {
-  extends: [require.resolve('@umijs/lint/dist/config/eslint')],
-  globals: {
-    page: true,
-    REACT_APP_ENV: true,
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: ['plugin:prettier/recommended'],
+  root: true,
+  rules: {
+    'no-empty': [true, 'allow-empty-catch'],
+    'no-var-requires': false,
+    '@typescript-eslint/no-inferrable-types': false,
   },
 };

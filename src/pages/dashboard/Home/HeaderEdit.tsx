@@ -1,65 +1,65 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
-import { Form, Modal, message, Col, Row, Divider, DatePicker, Space, Empty, Button, Spin, Popconfirm } from 'antd'
-import EditLeft from '../DraggableForm/Component/EditLeft'
-import CenterList from '../DraggableForm/Component/CenterList'
-import EditRight from '../DraggableForm/Component/EditRight'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { DragItem, types, Form_Type, Base_Type, Drag_List, Base_Type_Value } from '../DraggableForm/Component/Types'
-import PreviewForm from '../DraggableForm/Component/PreviewForm'
-import {db,getHeaderList,saveHeaderList} from "../../../utils/IndexDb"
-import { ContactsOutlined, FontColorsOutlined, SaveFilled, EyeFilled, FormOutlined } from '@ant-design/icons'
-import '../DraggableForm/index.less'
+import { EyeFilled, FormOutlined, SaveFilled } from '@ant-design/icons';
+import { Col, Divider, Empty, message, Modal, Popconfirm, Row, Space, Spin } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { getHeaderList, saveHeaderList } from '../../../utils/IndexDb';
+import CenterList from '../DraggableForm/Component/CenterList';
+import EditLeft from '../DraggableForm/Component/EditLeft';
+import EditRight from '../DraggableForm/Component/EditRight';
+import PreviewForm from '../DraggableForm/Component/PreviewForm';
+import { DragItem, Drag_List } from '../DraggableForm/Component/Types';
+import '../DraggableForm/index.less';
 
 interface IProps {
-  onClose?: () => void
+  onClose?: () => void;
 }
 
 const findKeyByValue = (obj, value) => {
   for (const key in obj) {
     if (obj[key] === value) {
-      return key
+      return key;
     }
   }
-  return null // 没有找到匹配的键
-}
+  return null; // 没有找到匹配的键
+};
 
 const Index: React.FC<IProps> = (props) => {
-  const { onClose } = props
-  const rightFormRef = useRef(null)
-  const [selectData, setSelectData] = useState<DragItem>(null)
-  const [isPreview, setIsPreview] = useState<DragItem[] | boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [sortableList, setSortableList] = useState<DragItem[]>([])
+  const { onClose } = props;
+  const rightFormRef = useRef(null);
+  const [selectData, setSelectData] = useState<DragItem>(null);
+  const [isPreview, setIsPreview] = useState<DragItem[] | boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [sortableList, setSortableList] = useState<DragItem[]>([]);
 
   const onSubmit = async () => {
-    onClose()
-  }
+    onClose();
+  };
   useEffect(() => {
-    initJsonData()
-  }, [])
+    initJsonData();
+  }, []);
 
   const initJsonData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      let res = await getHeaderList()
-      setSortableList(res)
+      let res = await getHeaderList();
+      setSortableList(res);
     } catch (e) {
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
   /**
    * 保存操作
    */
   const saveData = async () => {
     if (sortableList.some((v) => !v.code)) {
-      message.error('Code is a unique field.')
-      return
+      message.error('Code is a unique field.');
+      return;
     }
     if (sortableList.some((v) => v.isValidateError)) {
-      message.error('Please check and repair the red line configuration.')
-      return
+      message.error('Please check and repair the red line configuration.');
+      return;
     }
     const columnList = sortableList.map((item: DragItem, index) => {
       return {
@@ -71,15 +71,15 @@ const Index: React.FC<IProps> = (props) => {
         edit: item?.edit ? 1 : 0,
         search: item?.search ? 1 : 0,
         type: item.type,
-      }
-    })
-    const res = await saveHeaderList(columnList)
-    res && message.success('save success')
-  }
+      };
+    });
+    const res = await saveHeaderList(columnList);
+    res && message.success('save success');
+  };
 
   return (
     <Modal
-      className='complaints-edit'
+      className="complaints-edit"
       style={{ top: '10vh' }}
       width={'80vw'}
       title={`Create new`}
@@ -93,31 +93,35 @@ const Index: React.FC<IProps> = (props) => {
           <Divider />
           <Row style={{ height: '80vh' }}>
             <Col span={5} className={'filled-area'}>
-              <EditLeft sortableList={sortableList} setSortableList={setSortableList} defaultList={Drag_List} />
+              <EditLeft
+                sortableList={sortableList}
+                setSortableList={setSortableList}
+                defaultList={Drag_List}
+              />
             </Col>
             <Col span={13} className={'filled-area'}>
-              <div className='right-divider'>
-                <Row justify='space-between' align='middle' className='list-divider'>
+              <div className="right-divider">
+                <Row justify="space-between" align="middle" className="list-divider">
                   <h3>Form</h3>
-                  <div className='cursor'>
+                  <div className="cursor">
                     <Space size={20}>
                       <Popconfirm
                         onConfirm={() => {
-                          saveData()
+                          saveData();
                         }}
                         onCancel={() => {}}
                         title={'Confirm Save?'}
                       >
-                        <Row align='middle'>
+                        <Row align="middle">
                           <SaveFilled />
                           &nbsp;Save
                         </Row>
                       </Popconfirm>
                       {isPreview && (
                         <Row
-                          align='middle'
+                          align="middle"
                           onClick={() => {
-                            setIsPreview(null)
+                            setIsPreview(null);
                           }}
                         >
                           <FormOutlined />
@@ -126,9 +130,9 @@ const Index: React.FC<IProps> = (props) => {
                       )}
                       {!isPreview && (
                         <Row
-                          align='middle'
+                          align="middle"
                           onClick={() => {
-                            setIsPreview(sortableList)
+                            setIsPreview(sortableList);
                           }}
                         >
                           <EyeFilled />
@@ -146,7 +150,9 @@ const Index: React.FC<IProps> = (props) => {
                     setSortableList={setSortableList}
                   />
                 )}
-                {isPreview && <PreviewForm sortableList={sortableList} onReloadDetail={initJsonData} />}
+                {isPreview && (
+                  <PreviewForm sortableList={sortableList} onReloadDetail={initJsonData} />
+                )}
               </div>
             </Col>
             <Col span={6} className={'filled-area'}>
@@ -166,7 +172,7 @@ const Index: React.FC<IProps> = (props) => {
         </DndProvider>
       </Spin>
     </Modal>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
