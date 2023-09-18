@@ -5,25 +5,24 @@
  * @Description:
  * @FilePath: /umi-test/src/pages/Home/index.tsx
  */
-import { Button, Col, Row } from 'antd';
-import React, { useState } from 'react';
-import HeaderEdit from './HeaderEdit';
-import './index.less';
+import { Button, Col, Row } from 'antd'
+import React, { useState } from 'react'
+import HeaderEdit from './HeaderEdit'
+import './index.less'
 
 const HomePage: React.FC = () => {
-  const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false);
+  const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false)
 
   const onClose = () => {
-    setComplaintHeaderEdit(false);
-  };
+    setComplaintHeaderEdit(false)
+  }
   return (
     <>
       <Row>
-
         <Col>
           <Button
             onClick={() => {
-              setComplaintHeaderEdit(true);
+              setComplaintHeaderEdit(true)
             }}
           >
             Draggerable
@@ -32,7 +31,7 @@ const HomePage: React.FC = () => {
         {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import type { StateType } from './service';
 import { fakeRegister } from './service';
 import useStyles from './style.style';
+import React from 'react';
 
 const FormItem = Form.Item;
 const { Option } = Select;

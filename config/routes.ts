@@ -194,6 +194,23 @@ export default [
     ],
   },
   {
+    path: '/calendar',
+    name: 'calendar',
+    icon: 'profile',
+    routes: [
+      {
+        path: '/calendar',
+        redirect: '/calendar/index',
+      },
+      {
+        name: 'index',
+        icon: 'smile',
+        path: '/calendar/index',
+        component: './calendar/Calendar',
+      },
+    ],
+  },
+  {
     name: 'result',
     icon: 'CheckCircleOutlined',
     path: '/result',
