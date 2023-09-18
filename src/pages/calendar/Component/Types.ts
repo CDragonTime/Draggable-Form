@@ -5,31 +5,6 @@ export enum ModeTypes {
   YEAR = 'year',
 }
 
-export enum NoticeType {
-  PUSH = 'PUSH',
-  EMAIL = 'EMAIL',
-  EMAIL_TEMPLATE = 'EMAIL',
-  EMAIL_CONTENT = 'CUSTOM_EMAIL',
-  MARQUEE = 'MARQUEE',
-}
-
-export const DIVIDER_COLOR = 'rgb(192, 192, 192)'
-
-export const holidayStatus = {
-  '0': {
-    color: 'rgb(192, 192, 192)',
-    text: 'Ineffective',
-  },
-  '1': {
-    color: 'rgb(38, 181, 138)',
-    text: 'Effective',
-  },
-  // '2': {
-  //   color: 'rgb(192, 192, 192)',
-  //   text: 'Ineffective',
-  // },
-}
-
 export const ColorStatus = {
   1: {
     status: 'success',

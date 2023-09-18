@@ -1,10 +1,10 @@
-import React from 'react'
-import dayjs, { Dayjs } from 'dayjs'
-import { CalendarData, ColorStatus, WEEK_TITLE_LIST, getListData } from '../Types'
-import type { CellRenderInfo } from 'rc-picker/lib/interface'
-import { Badge, BadgeProps, Row, Tooltip } from 'antd'
-import e from 'express'
+import { CalendarData, WEEK_TITLE_LIST, getListData } from '../Types'
 import CellListRender from './CellListRender'
+import { Badge, BadgeProps, Row, Tooltip } from 'antd'
+import dayjs, { Dayjs } from 'dayjs'
+import e from 'express'
+import type { CellRenderInfo } from 'rc-picker/lib/interface'
+import React from 'react'
 
 type CellProps = {
   date: Dayjs // 循环日期
@@ -59,7 +59,7 @@ const CalendarMatrix: React.FC<CalendarProps> = (props) => {
                       {listData.map((item, index) => (
                         <li key={`${item.stockType}-${index}`}>
                           <Badge
-                            status={ColorStatus[item.status]?.status as BadgeProps['status']}
+                            status={[item.status]?.status as BadgeProps['status']}
                             text={<CellListRender isTitle={true} {...item} />}
                           />
                         </li>
@@ -67,7 +67,7 @@ const CalendarMatrix: React.FC<CalendarProps> = (props) => {
                     </ul>
                   }
                 >
-                  <Badge status={ColorStatus[item.status]?.status as BadgeProps['status']} text={<CellListRender {...item} />} />
+                  <Badge status={[item.status]?.status as BadgeProps['status']} text={<CellListRender {...item} />} />
                 </Tooltip>
               </li>
             ))}
@@ -78,32 +78,30 @@ const CalendarMatrix: React.FC<CalendarProps> = (props) => {
   }
 
   return (
-    <Row className='month-calendar'>
-      <table>
-        <thead>
-          <tr>
-            {WEEK_TITLE_LIST.map((v, index) => (
-              <th style={index === 0 ? { color: '#f5222d' } : {}} key={index}>
-                {v}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {calendarMatrix.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, colIndex) => {
-                if (cellRender && typeof cellRender === 'function') {
-                  cellRender(cell)
-                } else {
-                  return defaultCellRender(cell)
-                }
-              })}
-            </tr>
+    <table className='month-calendar'>
+      <thead>
+        <tr>
+          {WEEK_TITLE_LIST.map((v, index) => (
+            <th style={index === 0 ? { color: '#f5222d' } : {}} key={index}>
+              {v}
+            </th>
           ))}
-        </tbody>
-      </table>
-    </Row>
+        </tr>
+      </thead>
+      <tbody>
+        {calendarMatrix.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, colIndex) => {
+              if (cellRender && typeof cellRender === 'function') {
+                cellRender(cell)
+              } else {
+                return defaultCellRender(cell)
+              }
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )
 }
 

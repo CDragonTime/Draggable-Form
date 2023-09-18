@@ -208,6 +208,12 @@ export default [
         path: '/calendar/index',
         component: './calendar/Calendar',
       },
+      {
+        name: 'index',
+        icon: 'smile',
+        path: '/calendar/demo',
+        component: './calendarDemo/index',
+      },
     ],
   },
   {
