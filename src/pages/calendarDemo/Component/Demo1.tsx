@@ -71,7 +71,7 @@ const App: React.FC = () => {
     return info.originNode
   }
 
-  return <Calendar cellRender={cellRender}/>
+  return <Calendar className={'my-calendar'} cellRender={cellRender}/>
 }
 
 export default App

@@ -209,7 +209,7 @@ export default [
         component: './calendar/Calendar',
       },
       {
-        name: 'index',
+        name: 'index2',
         icon: 'smile',
         path: '/calendar/demo',
         component: './calendarDemo/index',
