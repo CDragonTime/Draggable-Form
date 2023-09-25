@@ -1,11 +1,13 @@
 import type { BadgeProps, CalendarProps } from 'antd'
-import { Badge, Calendar } from 'antd'
+import { Badge } from 'antd'
+import { MyCalendar } from "./Demo3"
+import type { Moment } from 'moment';
 import type { Dayjs } from 'dayjs'
-import dayjs from 'dayjs'
-import moment from 'moment'
 import React from 'react'
+import moment from 'moment';
+import dayjs from 'dayjs';
 
-const getListData = (value: Dayjs) => {
+const getListData = (value: Moment) => {
   // console.log(value.hours())
   if (value instanceof dayjs) {
     // 对象是dayjs对象
@@ -19,14 +21,14 @@ const getListData = (value: Dayjs) => {
   return []
 }
 
-const getMonthData = (value: Dayjs) => {
+const getMonthData = (value: Moment) => {
   if (value.month() === 8) {
     return 1394
   }
 }
 
 const App: React.FC = () => {
-  const monthCellRender = (value: Dayjs) => {
+  const monthCellRender = (value: Moment) => {
     const num = getMonthData(value)
     return num ? (
       <div className='notes-month'>
@@ -36,27 +38,18 @@ const App: React.FC = () => {
     ) : null
   }
 
-  const dateCellRender = (value: Dayjs) => {
+  const dateCellRender = (value: Moment) => {
     const listData = getListData(value)
-    // return (
-    //   <ul className='events'>
-    //     {listData.map((item) => (
-    //       <li key={item.content}>
-    //         <Badge status={item.type as BadgeProps['status']} text={item.content} />
-    //       </li>
-    //     ))}
-    //   </ul>
-    // )
     return null
   }
 
-  const cellRender: CalendarProps<Dayjs>['cellRender'] = (current, info) => {
+  const cellRender: CalendarProps<Moment>['cellRender'] = (current, info) => {
     if (info.type === 'date') return dateCellRender(current)
     if (info.type === 'month') return monthCellRender(current)
     return info.originNode
   }
 
-  return <Calendar className={'my-calendar'} cellRender={cellRender} />
+  return <MyCalendar className={'my-calendar'} cellRender={cellRender}/>
 }
 
 export default App

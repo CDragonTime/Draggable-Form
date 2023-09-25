@@ -118,7 +118,7 @@ export const useCalendarMatrix = (year: number): CalendarMatrix[][] => {
     const totalDaysInMonth = monthEnd.date()
     const totalWeeksInMonth = Math.ceil((totalDaysInMonth + startDayOfWeek) / 7)
 
-    debugger
+    // debugger
     const matrix: CalendarMatrix[] = []
     let weekNumber = 1
     let dateIndex = 1
