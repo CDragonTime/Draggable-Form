@@ -1,13 +1,10 @@
-import moment from 'moment'
 import Demo1 from './Component/Demo1'
-import Demo2 from './Component/Demo2'
-import MyDatePicker from './Component/MyTimePicker'
+import { DatePicker, TimePicker, Calendar } from './Component/index'
 import './index.less'
-import { FormInstance, message, DatePicker, Tooltip, Modal, Space, Drawer, Col, Row, Button, Radio, Divider, Select } from 'antd'
-import React, { useEffect, useState, useRef } from 'react'
+import { FormInstance, message, Tooltip, Modal, Space, Drawer, Col, Row, Button, Radio, Divider, Select } from 'antd'
 import dayjs from 'dayjs'
-
-const { RangePicker } = DatePicker
+import moment from 'moment'
+import React, { useEffect, useState, useRef } from 'react'
 
 export default function ChatMgtList(props) {
   return (
@@ -16,13 +13,12 @@ export default function ChatMgtList(props) {
         <Demo1 />
       </Col>
       <Col span='8'>
-        <MyDatePicker onChange={(e)=>{
-          console.log(moment.isMoment(e),"-=-=-=-=-==--=-=")
-          console.log(dayjs.isDayjs(e),"-=-=-=-=sdflj-==--=-=")
-        }}/>
+        <DatePicker defaultValue={moment('2022-04-02')} />
+        {/* <TimePicker defaultValue={moment('2022-04-02')} /> */}
+        <Calendar />
       </Col>
       <Col span='8'>
-        <Demo2 />
+        {/* <Demo2 /> */}
       </Col>
     </Row>
   )
