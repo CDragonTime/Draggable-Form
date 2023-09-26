@@ -1,5 +1,5 @@
 import Demo1 from './Component/Demo1'
-import { DatePicker, TimePicker, Calendar } from './Component/index'
+import { DatePicker, Calendar } from './Component/index'
 import './index.less'
 import { FormInstance, message, Tooltip, Modal, Space, Drawer, Col, Row, Button, Radio, Divider, Select } from 'antd'
 import dayjs from 'dayjs'
@@ -13,13 +13,22 @@ export default function ChatMgtList(props) {
         <Demo1 />
       </Col>
       <Col span='8'>
-        <DatePicker defaultValue={moment('2022-04-02')} />
+        <DatePicker
+          defaultValue={moment('2022-04-02')}
+          onChange={(e) => {
+            console.log(e, e.tz(), '-==--==--==--=')
+            // console.log(e, e.hours(), '-==--==--==--=')
+          }}
+        />
+        {/* <DatePicker
+          defaultValue={dayjs('2022-04-02')}
+          onChange={(e) => {
+            console.log(e, '-==--==--==--=')
+          }}
+        /> */}
         {/* <TimePicker defaultValue={moment('2022-04-02')} /> */}
-        <Calendar />
       </Col>
-      <Col span='8'>
-        {/* <Demo2 /> */}
-      </Col>
+      <Col span='8'>{/* <Demo2 /> */}</Col>
     </Row>
   )
 }

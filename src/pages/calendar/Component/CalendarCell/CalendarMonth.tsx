@@ -1,18 +1,20 @@
 import { CalendarData, CellProps, ColorStatus, WEEK_TITLE_LIST, getListData, mockCalendarData, useCalendarMonthMatrix } from '../Types'
-import { Badge, BadgeProps, Row, Tooltip } from 'antd'
+import { Badge, BadgeProps, Row, Tooltip, message } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
 import type { CellRenderInfo } from 'rc-picker/lib/interface'
 import React from 'react'
 
+
 interface CalendarProps {
   current: Dayjs // current是所选择对应的时间
-  cellRender: (cell: CellProps) => void // 渲染单元格
+  cellRender: (cell: CellProps) => React.ReactNode // 渲染单元格
   calendarList: CalendarData[]
 }
 
 const CalendarMatrix: React.FC<CalendarProps> = (props) => {
   const { current, cellRender, calendarList } = props
   const calendarMatrix = useCalendarMonthMatrix(current.year(), current.month())
+  // console.log(dayjs.localeData().weekdays(), '+_==--=-=-=')
 
   const defaultCellRender = (cell: CellProps) => {
     // const listData = getListData(cell.date, calendarList)
@@ -20,7 +22,14 @@ const CalendarMatrix: React.FC<CalendarProps> = (props) => {
     const isToday = cell.date?.format('YYYY-MM-DD') === dayjs().add(0, 'days').format('YYYY-MM-DD')
 
     return (
-      <td key={cell.date?.valueOf()} className={`current-month  ${listData.length ? 'ul-events-data' : 'ul-normal'}`}>
+      <td
+        key={cell.date?.valueOf()}
+        onClick={() => {
+          console.log(cell.date,"-==--==--=-=cell.date")
+          message.warning(`onSelect:${cell.date?.format("YYYY-MM-DD")}`)
+        }}
+        className={`current-month  ${listData.length ? 'ul-events-data' : 'ul-normal'}`}
+      >
         <div className={`${!cell.isCurrentMonth ? 'opacity-month' : ''}`} style={{ height: '100%' }}>
           <span className={`${isToday && 'is-today'}`}> {cell.date?.date()}</span>
           <ul className={`ul-events`}>
@@ -61,7 +70,7 @@ const CalendarMatrix: React.FC<CalendarProps> = (props) => {
             <tr key={rowIndex}>
               {row.map((cell, colIndex) => {
                 if (cellRender && typeof cellRender === 'function') {
-                  cellRender(cell)
+                  return <>{cellRender(cell)}</>
                 } else {
                   return defaultCellRender(cell)
                 }

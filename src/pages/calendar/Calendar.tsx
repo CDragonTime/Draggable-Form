@@ -7,6 +7,9 @@ import dayjs, { Dayjs } from 'dayjs'
 import React, { useEffect, useState, useRef } from 'react'
 
 const { RangePicker } = DatePicker
+// 设置月日历的星期排布
+// dayjs.locale('zh-cn')
+dayjs.locale('en')
 
 const defaultYear = dayjs()
 

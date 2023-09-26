@@ -99,7 +99,7 @@ export const getListData = (value: Dayjs, calendarData: CalendarData[]) => {
   return listData || []
 }
 
-interface CalendarMatrix {
+export interface CalendarMatrix {
   date: dayjs.Dayjs | null
   isCurrentMonth: boolean
 }
@@ -112,33 +112,7 @@ export const useCalendarMatrix = (year: number): CalendarMatrix[][] => {
   const calendarMatrix: CalendarMatrix[][] = []
 
   for (let month = 0; month < 12; month++) {
-    const monthStart = dayjs().year(year).month(month).startOf('month')
-    const monthEnd = dayjs().year(year).month(month).endOf('month')
-    const startDayOfWeek = monthStart.day()
-    const totalDaysInMonth = monthEnd.date()
-    const totalWeeksInMonth = Math.ceil((totalDaysInMonth + startDayOfWeek) / 7)
-
-    // debugger
-    const matrix: CalendarMatrix[] = []
-    let weekNumber = 1
-    let dateIndex = 1
-
-    for (let week = 1; week <= totalWeeksInMonth; week++) {
-      const dates: any = []
-      for (let day = 0; day < 7; day++) {
-        if ((week === 1 && day < startDayOfWeek) || dateIndex > totalDaysInMonth) {
-          dates.push(null)
-        } else {
-          const date = dayjs().year(year).month(month).date(dateIndex)
-          dates.push(date)
-          dateIndex++
-        }
-      }
-      matrix.push(dates)
-      weekNumber++
-    }
-
-    calendarMatrix.push(matrix)
+    calendarMatrix.push(useCalendarMonthMatrix(year, month))
   }
 
   return calendarMatrix
@@ -152,300 +126,344 @@ export type CellProps = {
 export const useCalendarMonthMatrix = (year: number, month: number): CellProps[][] => {
   const startDate = dayjs().year(year).month(month).startOf('month').startOf('week')
 
-  const calendarMatrix: CellProps[][] = Array(6).fill(null).map((_, rowIndex) =>
-    Array(7).fill(null).map((_, colIndex) => {
-      const currentDate = startDate.add(rowIndex * 7 + colIndex, 'day')
-      return {
-        date: currentDate,
-        isCurrentMonth: currentDate.month() === month,
-      }
-    })
-  )
+  const calendarMatrix: CellProps[][] = Array(6)
+    .fill(null)
+    .map((_, rowIndex) =>
+      Array(7)
+        .fill(null)
+        .map((_, colIndex) => {
+          const currentDate = startDate.add(rowIndex * 7 + colIndex, 'day')
+          // console.log(currentDate.date(),"-==-=--=-=-=")
+
+          return {
+            date: currentDate,
+            isCurrentMonth: currentDate.month() === month,
+          }
+        })
+    )
   return calendarMatrix
 }
 
+// /**
+//  * 获取对应年份枚举
+//  * @param year 对应年份
+//  * @returns
+//  */
+//  export const useCalendarMatrix = (year: number): CalendarMatrix[][] => {
+//   const calendarMatrix: CalendarMatrix[][] = []
 
+//   for (let month = 0; month < 12; month++) {
+//     const monthStart = dayjs().year(year).month(month).startOf('month')
+//     const monthEnd = dayjs().year(year).month(month).endOf('month')
+//     const startDayOfWeek = monthStart.day()
+//     const totalDaysInMonth = monthEnd.date()
+//     const totalWeeksInMonth = Math.ceil((totalDaysInMonth + startDayOfWeek) / 7)
+//     console.log(startDayOfWeek, totalDaysInMonth, totalWeeksInMonth, '-=-=-==--=-=-')
 
+//     // debugger
+//     const matrix: CalendarMatrix[] = []
+//     let weekNumber = 1
+//     let dateIndex = 1
 
+//     for (let week = 1; week <= totalWeeksInMonth; week++) {
+//       const dates: any = []
+//       for (let day = 0; day < 7; day++) {
+//         if ((week === 1 && day < startDayOfWeek) || dateIndex > totalDaysInMonth) {
+//           dates.push(null)
+//         } else {
+//           const date = dayjs().year(year).month(month).date(dateIndex)
+//           dates.push(date)
+//           dateIndex++
+//         }
+//       }
+//       matrix.push(dates)
+//       weekNumber++
+//     }
+
+//     calendarMatrix.push(matrix)
+//   }
+
+//   return calendarMatrix
+// }
 
 export const mockCalendarData = [
   {
-      "date": "2023-01-16",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Martin Luther King Day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-01-16',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Martin Luther King Day',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-01-02",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "New year's day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-01-02',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: "New year's day",
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-06-19",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Juneteenth National Independence Day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-06-19',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Juneteenth National Independence Day',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-05-29",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Memorial day",
-              "time": "00:00-23:59 ET",
-              "status": 1
-          }
-      ]
+    date: '2023-05-29',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Memorial day',
+        time: '00:00-23:59 ET',
+        status: 1,
+      },
+    ],
   },
   {
-      "date": "2023-04-07",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Good friday",
-              "time": "00:00-23:59 ET",
-              "status": 1
-          }
-      ]
+    date: '2023-04-07',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Good friday',
+        time: '00:00-23:59 ET',
+        status: 1,
+      },
+    ],
   },
   {
-      "date": "2023-02-20",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Presidents day",
-              "time": "00:00-23:59 ET",
-              "status": 1
-          }
-      ]
+    date: '2023-02-20',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Presidents day',
+        time: '00:00-23:59 ET',
+        status: 1,
+      },
+    ],
   },
   {
-      "date": "2023-09-08",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          },
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0907-跨天-EN",
-              "time": "00:00-23:59 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-09-08',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0907-跨天-EN',
+        time: '00:00-23:59 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-07-04",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "American Independence Day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-07-04',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'American Independence Day',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-09",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-09-09',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-06",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-不跨天-EN",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          },
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-09-06',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-不跨天-EN',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-07",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          },
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0907-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-09-07',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0907-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-04",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "labor day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-09-04',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'labor day',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-05",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Christmas day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          },
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0905-EN",
-              "time": "00:00-23:59 ET",
-              "status": 1
-          }
-      ]
+    date: '2023-09-05',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Christmas day',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0905-EN',
+        time: '00:00-23:59 ET',
+        status: 1,
+      },
+    ],
   },
   {
-      "date": "2023-12-25",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Christmas",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-12-25',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Christmas',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-11",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-09-11',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-11-23",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "Thanksgiving Day",
-              "time": "00:00-23:59 ET",
-              "status": 0
-          }
-      ]
+    date: '2023-11-23',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: 'Thanksgiving Day',
+        time: '00:00-23:59 ET',
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-12",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-23:59 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-09-12',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-23:59 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-10-01",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "测试节日-01",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-10-01',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '测试节日-01',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-10-02",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "测试节日-01",
-              "time": "00:00-23:59 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
+    date: '2023-10-02',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '测试节日-01',
+        time: '00:00-23:59 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
   },
   {
-      "date": "2023-09-10",
-      "items": [
-          {
-              "stockType": "US_STOCK",
-              "stockName": "US Stocks",
-              "holidayName": "节日-0906-跨天-EN",
-              "time": "00:00-24:00 ET",
-              "priority": 1,
-              "status": 0
-          }
-      ]
-  }
+    date: '2023-09-10',
+    items: [
+      {
+        stockType: 'US_STOCK',
+        stockName: 'US Stocks',
+        holidayName: '节日-0906-跨天-EN',
+        time: '00:00-24:00 ET',
+        priority: 1,
+        status: 0,
+      },
+    ],
+  },
 ]
