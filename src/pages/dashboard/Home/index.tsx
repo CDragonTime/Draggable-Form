@@ -5,10 +5,12 @@
  * @Description:
  * @FilePath: /umi-test/src/pages/Home/index.tsx
  */
-import { Button, Col, Row } from 'antd'
+import { Button, Col, Row, Tabs } from 'antd'
 import React, { useState } from 'react'
 import HeaderEdit from './HeaderEdit'
 import './index.less'
+import IMChat from './IMChat'
+import MQTTChat from './MQTTChat'
 
 const HomePage: React.FC = () => {
   const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false)
@@ -19,7 +21,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Row>
-        <Col>
+        {/* <Col>
           <Button
             onClick={() => {
               setComplaintHeaderEdit(true)
@@ -27,8 +29,23 @@ const HomePage: React.FC = () => {
           >
             Draggerable
           </Button>
-        </Col>
+        </Col> */}
         {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
+        <Tabs
+          defaultActiveKey={'2'}
+          items={[
+            {
+              key: '1',
+              label: 'WebSocket',
+              children: <IMChat />,
+            },
+            {
+              key: '2',
+              label: 'MQTT',
+              children: <MQTTChat />,
+            },
+          ]}
+        ></Tabs>
       </Row>
     </>
   )
