@@ -15,6 +15,7 @@ declare global {
   interface Window {
     webull: any
     websocket: any
+    websocketAll: any
   }
 }
 
@@ -37,7 +38,7 @@ const Chat = () => {
         window.webull = {
           username: uniqueUsername,
         }
-        window.websocket = mqtt.connect(MQTT_HOST, {
+        window.websocketAll = mqtt.connect(MQTT_HOST, {
           wsOptions: {}, //是WebSocket连接选项。默认为 {} 。它特定于 WebSocket。有关可能的选项，请查看：https://github.com/websockets/ws/blob/master/doc/ws.md。
           clientId: 'client_' + v4()?.slice(0, 10),
           // username: 'user-' + v4(), //用户名，后端用来集合是否多个长链接属于一个用户
@@ -45,20 +46,30 @@ const Chat = () => {
           keepalive: 20, //心跳消息的频率
           reconnectPeriod: 1000,
         })
-        window.websocket.on('connect', () => {
+        window.websocketAll.on('connect', () => {
           console.log('connect success============' + new Date().toString())
         })
-        window.websocket.on('reconnect', () => {
+        window.websocketAll.on('reconnect', () => {
           console.log('reconnect ============' + new Date().toString())
         })
-        window.websocket.on('error', (e: any) => {
+        window.websocketAll.on('error', (e: any) => {
           console.log('error============')
           // "Connection refused: Bad username or password"
           if (e.code === 4) {
             // 跳转到登录；
           }
         })
-        window.websocket.on('message', (topic, message) => {
+        // 订阅主题
+        window.websocketAll.subscribe('ALL_TEAMS', function (err) {
+          if (!err) {
+            console.log('订阅成功')
+          } else {
+            console.log('订阅失败', err)
+          }
+        })
+        window.websocketAll.on('message', (topic, message) => {
+          // debugger
+
           const receivedData = JSON.parse(message)
           setMessagesMap((prevMap) => {
             const updatedMap = new Map(prevMap)
@@ -70,6 +81,7 @@ const Chat = () => {
             } else {
               updatedMap.set(receivedData.id, receivedData)
             }
+
             console.log('Message successfully received by MQTT server')
             return updatedMap
           })
@@ -77,12 +89,12 @@ const Chat = () => {
       })
 
     return () => {
-      if (window.websocket.connected) {
-        window.websocket.end() // 关闭 MQTT 连接
+      if (window.websocketAll.connected) {
+        window.websocketAll.end() // 关闭 MQTT 连接
         console.log('MQTT connection closed')
       }
     }
-  }, [])
+  }, []) // 依赖数组为空，表示只在组件卸载时执行清理操作
 
   const handleSendMessage = (content) => {
     const messageID = v4()
@@ -90,7 +102,7 @@ const Chat = () => {
     const newMessagesMap = new Map(messagesMap)
     newMessagesMap.set(messageID, messagePublish)
     setMessagesMap(newMessagesMap)
-    window.websocket.publish('SUPPORT', JSON.stringify(messagePublish))
+    window.websocketAll.publish('SUPPORT_TEAMS', JSON.stringify(messagePublish))
   }
 
   return (

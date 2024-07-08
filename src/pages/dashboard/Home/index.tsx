@@ -11,6 +11,7 @@ import HeaderEdit from './HeaderEdit'
 import './index.less'
 import IMChat from './IMChat'
 import MQTTChat from './MQTTChat'
+import MQTTChatAll from './MQTTChatAll'
 
 const HomePage: React.FC = () => {
   const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false)
@@ -43,6 +44,11 @@ const HomePage: React.FC = () => {
               key: '2',
               label: 'MQTT',
               children: <MQTTChat />,
+            },
+            {
+              key: '3',
+              label: 'MQTTALL',
+              children: <MQTTChatAll />,
             },
           ]}
         ></Tabs>
