@@ -8,7 +8,7 @@ import mqtt from 'mqtt'
 import React, { useState, useEffect } from 'react'
 import { v4 } from 'uuid'
 
-const MQTT_HOST = 'ws://localhost:1883' // MQTT连接地址
+const MQTT_HOST = 'ws://10.0.211.252:1883' // MQTT连接地址
 
 // 限制全局window报错
 declare global {

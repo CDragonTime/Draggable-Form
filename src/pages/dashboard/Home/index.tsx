@@ -33,18 +33,18 @@ const HomePage: React.FC = () => {
         </Col> */}
         {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
         <Tabs
-          defaultActiveKey={'2'}
+          defaultActiveKey={'3'}
           items={[
             {
               key: '1',
               label: 'WebSocket',
               children: <IMChat />,
             },
-            {
-              key: '2',
-              label: 'MQTT',
-              children: <MQTTChat />,
-            },
+            // {
+            //   key: '2',
+            //   label: 'MQTT',
+            //   children: <MQTTChat />,
+            // },
             {
               key: '3',
               label: 'MQTTALL',

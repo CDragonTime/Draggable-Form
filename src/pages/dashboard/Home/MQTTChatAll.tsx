@@ -8,7 +8,7 @@ import mqtt from 'mqtt'
 import React, { useState, useEffect } from 'react'
 import { v4 } from 'uuid'
 
-const MQTT_HOST = 'ws://localhost:1883' // MQTT连接地址
+const MQTT_HOST = 'ws://10.0.211.252:1883' // MQTT连接地址
 
 // 限制全局window报错
 declare global {
@@ -24,69 +24,58 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState('')
 
   useEffect(() => {
-    // 初始化 FingerprintJS 实例
-    const fpPromise = FingerprintJS.load()
-    // 获取浏览器指纹
-    fpPromise
-      .then((fp) => fp.get())
-      .then((result) => {
-        // 这是访问者标识符
-        const visitorId = result.visitorId
-        console.log(visitorId)
-        // 根据浏览器指纹生成唯一的用户名
-        const uniqueUsername = 'user-' + visitorId
-        window.webull = {
-          username: uniqueUsername,
+    const uniqueUsername = 'user-' + v4()
+    window.webull = {
+      username: uniqueUsername,
+    }
+    window.websocketAll = mqtt.connect(MQTT_HOST, {
+      wsOptions: {}, //是WebSocket连接选项。默认为 {} 。它特定于 WebSocket。有关可能的选项，请查看：https://github.com/websockets/ws/blob/master/doc/ws.md。
+      clientId: 'client_' + v4()?.slice(0, 10),
+      // username: 'user-' + v4(), //用户名，后端用来集合是否多个长链接属于一个用户
+      username: uniqueUsername,
+      keepalive: 20, //心跳消息的频率
+      reconnectPeriod: 1000,
+    })
+    window.websocketAll.on('connect', () => {
+      console.log('connect success============' + new Date().toString())
+    })
+    window.websocketAll.on('reconnect', () => {
+      console.log('reconnect ============' + new Date().toString())
+    })
+    window.websocketAll.on('error', (e: any) => {
+      console.log('error============')
+      // "Connection refused: Bad username or password"
+      if (e.code === 4) {
+        // 跳转到登录；
+      }
+    })
+    // 订阅主题
+    window.websocketAll.subscribe('ALL_TEAMS', function (err) {
+      if (!err) {
+        console.log('订阅成功')
+      } else {
+        console.log('订阅失败', err)
+      }
+    })
+    window.websocketAll.on('message', (topic, message) => {
+      // debugger
+
+      const receivedData = JSON.parse(message)
+      setMessagesMap((prevMap) => {
+        const updatedMap = new Map(prevMap)
+        const existingMessage = updatedMap.get(receivedData.id)
+
+        if (existingMessage) {
+          existingMessage.status = receivedData.status
+          updatedMap.set(receivedData.id, existingMessage)
+        } else {
+          updatedMap.set(receivedData.id, receivedData)
         }
-        window.websocketAll = mqtt.connect(MQTT_HOST, {
-          wsOptions: {}, //是WebSocket连接选项。默认为 {} 。它特定于 WebSocket。有关可能的选项，请查看：https://github.com/websockets/ws/blob/master/doc/ws.md。
-          clientId: 'client_' + v4()?.slice(0, 10),
-          // username: 'user-' + v4(), //用户名，后端用来集合是否多个长链接属于一个用户
-          username: uniqueUsername,
-          keepalive: 20, //心跳消息的频率
-          reconnectPeriod: 1000,
-        })
-        window.websocketAll.on('connect', () => {
-          console.log('connect success============' + new Date().toString())
-        })
-        window.websocketAll.on('reconnect', () => {
-          console.log('reconnect ============' + new Date().toString())
-        })
-        window.websocketAll.on('error', (e: any) => {
-          console.log('error============')
-          // "Connection refused: Bad username or password"
-          if (e.code === 4) {
-            // 跳转到登录；
-          }
-        })
-        // 订阅主题
-        window.websocketAll.subscribe('ALL_TEAMS', function (err) {
-          if (!err) {
-            console.log('订阅成功')
-          } else {
-            console.log('订阅失败', err)
-          }
-        })
-        window.websocketAll.on('message', (topic, message) => {
-          // debugger
 
-          const receivedData = JSON.parse(message)
-          setMessagesMap((prevMap) => {
-            const updatedMap = new Map(prevMap)
-            const existingMessage = updatedMap.get(receivedData.id)
-
-            if (existingMessage) {
-              existingMessage.status = receivedData.status
-              updatedMap.set(receivedData.id, existingMessage)
-            } else {
-              updatedMap.set(receivedData.id, receivedData)
-            }
-
-            console.log('Message successfully received by MQTT server')
-            return updatedMap
-          })
-        })
+        console.log('Message successfully received by MQTT server')
+        return updatedMap
       })
+    })
 
     return () => {
       if (window.websocketAll.connected) {

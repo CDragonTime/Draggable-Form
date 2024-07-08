@@ -49,7 +49,7 @@ export default [
     routes: [
       {
         path: '/dashboard',
-        redirect: '/dashboard/analysis',
+        redirect: '/dashboard/Home',
       },
       {
         name: 'analysis',

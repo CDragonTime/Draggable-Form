@@ -20,7 +20,7 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState('')
 
   const connectWebSocket = () => {
-    ws = new WebSocket('ws://localhost:1884')
+    ws = new WebSocket('ws://10.0.211.252:1884')
 
     ws.onopen = () => {
       console.log('WebSocket connected')
