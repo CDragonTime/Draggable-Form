@@ -63,6 +63,7 @@
     "@fingerprintjs/fingerprintjs": "^4.4.2",
     "@types/lodash.debounce": "^4.0.7",
     "@umijs/route-utils": "^2.2.2",
+    "@wangeditor/editor-for-react": "^1.0.6",
     "ahooks": "^2.10.14",
     "antd": "^5.8.4",
     "antd-style": "^2.0.2",

@@ -12,6 +12,7 @@ import './index.less'
 import IMChat from './IMChat'
 import MQTTChat from './MQTTChat'
 import MQTTChatAll from './MQTTChatAll'
+import Editor from '../Editor/Editor'
 
 const HomePage: React.FC = () => {
   const [complaintHeaderEdit, setComplaintHeaderEdit] = useState<boolean>(false)
@@ -31,7 +32,7 @@ const HomePage: React.FC = () => {
             Draggerable
           </Button>
         </Col> */}
-        {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
+        {/* {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
         <Tabs
           defaultActiveKey={'3'}
           items={[
@@ -51,7 +52,8 @@ const HomePage: React.FC = () => {
               children: <MQTTChatAll />,
             },
           ]}
-        ></Tabs>
+        ></Tabs> */}
+        <Editor />
       </Row>
     </>
   )
