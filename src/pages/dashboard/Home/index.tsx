@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Row>
-        {/* <Col>
+        <Col>
           <Button
             onClick={() => {
               setComplaintHeaderEdit(true)
@@ -31,8 +31,8 @@ const HomePage: React.FC = () => {
           >
             Draggerable
           </Button>
-        </Col> */}
-        {/* {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
+        </Col>
+        {complaintHeaderEdit && <HeaderEdit onClose={onClose} />}
         <Tabs
           defaultActiveKey={'3'}
           items={[
@@ -41,18 +41,18 @@ const HomePage: React.FC = () => {
               label: 'WebSocket',
               children: <IMChat />,
             },
-            // {
-            //   key: '2',
-            //   label: 'MQTT',
-            //   children: <MQTTChat />,
-            // },
+            {
+              key: '2',
+              label: 'MQTT',
+              children: <MQTTChat />,
+            },
             {
               key: '3',
               label: 'MQTTALL',
               children: <MQTTChatAll />,
             },
           ]}
-        ></Tabs> */}
+        ></Tabs>
         <Editor />
       </Row>
     </>
